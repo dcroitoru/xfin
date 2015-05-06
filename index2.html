@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html >
+<head lang="en">
+    <meta charset="UTF-8">
+
+    
+    <script src="js/thirdparty/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var allData = null;
+        $.get( "movies.html", function( data ) {
+            
+            //console.log(data);
+            allData = data;
+            parseData(allData);
+            
+        });
+
+        function parseData(data) {
+            var anchor_REGEX = /<a[^>]*>([^<]+)<\/a>/g;
+            var temp = data.match(anchor_REGEX).splice(0, 20);
+
+            var result = temp.map(function (element) {
+
+                return {
+                    url: /href="([^"]*)"/.exec(element)[1],
+                    id: /id="([^"]*)"/.exec(element)[1],
+                    videoId: /data-v="([^"]*)"/.exec(element)[1],
+                };
+            });
+            console.log('result is', result);
+            console.log(JSON.stringify(result))
+        }
+    });
+    
+    </script>
+    <title></title>
+</head>
+<body >
+    
+
+</body>
+</html>
