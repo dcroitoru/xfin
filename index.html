@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+<head lang="en">
+    <meta charset="UTF-8">
+
+    
+    <script src="jquery.js"></script>
+    <script type="text/javascript">
+// website - http://xfinitytv.comcast.net/movies#
+// summary http://xfinitytv.comcast.net/api/video/summary/6613510517591897112
+// watch url - /watch/12-Years-a-Slave/6613510517591897112/movies
+// thumbnail - http://xfinitytv.comcast.net/api/entity/thumbnail/8330155604280754112/180/240?noRedir=true (240x320)
+// tv episodes - http://xfinitytv.comcast.net/vodservice/rest/tv/rovi/grid/search/seriesIds/8664416244536328112.json?headend=3460X&unifiedListings=true&idType=entityId
+    $(document).ready(function () {
+        var allData = null;
+        $.get( "movies.html", function( data ) {
+            
+            //console.log(data);
+            allData = data;
+            parseData(allData);
+            
+        });
+
+        function parseData(data) {
+            var anchor_REGEX = /<a[^>]*>([^<]+)<\/a>/g;
+            var temp = data.match(anchor_REGEX).splice(0, 20);
+            console.log(temp);
+            var result = temp.map(function (element) {
+
+                return {
+                    url: /href="([^"]*)"/.exec(element)[1],
+                    id: /id="([^"]*)"/.exec(element)[1],
+                    videoId: /data-v="([^"]*)"/.exec(element)[1],
+                };
+            });
+            console.log('result is', result);
+            console.log(JSON.stringify(result))
+        }
+    });
+    
+    </script>
+    <title></title>
+</head>
+<body >
+
+
+</body>
+</html>
