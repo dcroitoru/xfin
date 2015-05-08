@@ -1,0 +1,9 @@
+.movie-thumb {
+	display: inline-block;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.movie-thumb img {
+	display: block;
+}
