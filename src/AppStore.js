@@ -1,9 +1,12 @@
 var Reflux = require('reflux');
 var request = require('superagent');
 var AppActions = require('./AppActions');
+var Remote = require('./Remote');
 
+//var api_key = '095eaae6f523d439868754b7c4086b72';
 var messages = ["miau"];
 var movies = [];
+var tv = [];
 var AppStore = Reflux.createStore({
 
 	listenables: AppActions,
@@ -11,11 +14,26 @@ var AppStore = Reflux.createStore({
 		messages.push(message);
 		this.trigger({messages: messages});
 	},
-	onGetMovies: function () {
+	/*onGetMovies: function () {
 		request.get('http://xfinitytv.comcast.net/movie.widget')
 			.end(function(err, res){
 	    		movies = parseMovies(res.text);
 	    		this.trigger({movies: movies});
+			}.bind(this));
+	},*/
+	onGetMovies: function () {
+		request.get('http://api.themoviedb.org/3/movie/popular', {api_key: Remote.api_key})
+			.end(function(err, res){
+	    		movies = res.body.results;
+	    		this.trigger({movies: movies});
+			}.bind(this));
+	},
+
+	onGetTv: function () {
+		request.get('http://api.themoviedb.org/3/tv/popular', {api_key: Remote.api_key})
+			.end(function(err, res){
+	    		tv = res.body.results;
+	    		this.trigger({tv: tv});
 			}.bind(this));
 	},
 

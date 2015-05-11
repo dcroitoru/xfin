@@ -1,24 +1,18 @@
 var React = require('react');
-var router = require('react-router');
 var request = require('superagent');
 var Remote = require('../Remote');
-var MovieDetails = require('./MovieDetails');
-var SimilarMovies = require('./SimilarMovies');
-var MovieCast = require('./MovieCast');
 
-
-
-function getBackdrop(title) {
-	return '';
-}
+var MovieDetails = require('../movies/MovieDetails');
+var MovieCast = require('../movies/MovieCast');
+var SimilarTv = require('./SimilarTv');
 
 var theid;
-var MovieDetailsView = React.createClass({
+var TvDetailsView = React.createClass({
 	contextTypes: {
     	router: React.PropTypes.func
   	},
   	getSummary: function (id) {
-		request.get(Remote.tmdb + '/movie/' + id + '?api_key=' + Remote.api_key)
+		request.get(Remote.tmdb + '/tv/' + id + '?api_key=' + Remote.api_key)
 		.end(function (err, res) {
 			console.log(res.body);
 			this.setState({
@@ -30,7 +24,7 @@ var MovieDetailsView = React.createClass({
 	},
 
 	getSimilar: function (id) {
-		request.get(Remote.tmdb + '/movie/' + id + '/similar?api_key=' + Remote.api_key)
+		request.get(Remote.tmdb + '/tv/' + id + '/similar?api_key=' + Remote.api_key)
 		.end(function (err, res) {
 			console.log('similar', res.body);
 			this.setState({
@@ -39,7 +33,7 @@ var MovieDetailsView = React.createClass({
 		}.bind(this));
 	},
 	getCredits: function (id) {
-		request.get(Remote.tmdb + '/movie/' + id + '/credits?api_key=' + Remote.api_key)
+		request.get(Remote.tmdb + '/tv/' + id + '/credits?api_key=' + Remote.api_key)
 		.end(function (err, res) {
 			console.log('credits', res.body);
 			this.setState({
@@ -81,7 +75,7 @@ var MovieDetailsView = React.createClass({
 				: <span>loading...</span>
 			}
 			{this.state.similar
-				? <SimilarMovies similar={this.state.similar} />
+				? <SimilarTv similar={this.state.similar} />
 				: <span>loading...</span>
 			}
 			
@@ -91,30 +85,4 @@ var MovieDetailsView = React.createClass({
 
 });
 
-module.exports = MovieDetailsView;
-
-
-/*
-getBackdrop: function (title) {
-		request.get('http://api.themoviedb.org/3/search/movie?api_key=095eaae6f523d439868754b7c4086b72&query=' + title)
-		.end(function (err, res) {
-			console.log(res.body);
-			if(!err) {
-				this.setState({
-					backdrop: 'http://image.tmdb.org/t/p/w1280' + res.body.results[0].backdrop_path,
-					poster: 'http://image.tmdb.org/t/p/w150' + res.body.results[0].poster_path,
-				});
-			}
-		}.bind(this));
-		
-	},*/
-
-	  	/*getSummary: function (id) {
-		//http://xfinitytv.comcast.net/api/video/summary/6613510517591897112
-		request.get('http://xfinitytv.comcast.net/api/video/summary/' + id)
-		.end(function (err, res) {
-			console.log(res.body);
-			this.setState({summary: res.body});
-			this.getBackdrop(res.body.name)
-		}.bind(this));
-	},*/
+module.exports = TvDetailsView;

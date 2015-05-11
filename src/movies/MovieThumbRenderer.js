@@ -1,19 +1,14 @@
 var React = require('react');
 var Reouter = require('react-router');
 var AppActions = require('../AppActions');
+var Remote= require('../Remote');
 
 var MovieThumbRenderer = React.createClass({
-	contextTypes: {
-    	router: React.PropTypes.func
-  	},
-	handleClick: function() {
-		//AppActions.selectMovie(this.props.movie);
-		this.context.router.transitionTo('/movie/' + this.props.movie.id);
-	},
+
 	render: function() {
-		var url = "http://xfinitytv.comcast.net/api/entity/thumbnail/" + this.props.movie.id +"/180/240?noRedir=true"
+		var url = Remote.poster(this.props.movie);
 		return (
-			<div className="movie-thumb" onClick={this.handleClick}>
+			<div className="movie-thumb" onClick={this.props.selectHandler}>
 				<img src={url}></img>
 				{this.props.movie.title}
 			</div>

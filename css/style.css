@@ -2,6 +2,8 @@
 	display: inline-block;
 	margin: 5px;
 	cursor: pointer;
+	width: 150px;
+	vertical-align: top;
 }
 
 .movie-thumb img {

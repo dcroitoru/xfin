@@ -10,8 +10,6 @@ var MoviesContainer = React.createClass({
 		AppActions.getMovies();
 	},
 	render: function() {
-		console.log('rendering', this.state.movies);
-		console.log('rendering', this.state.messages);
 		return (
 			<div>movies container will call for movies
 				<Movies data={this.state.movies}/>
