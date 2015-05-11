@@ -40,9 +40,9 @@ var AppStore = Reflux.createStore({
 	onGetSports: function () {
 		request.get('http://xfinitytv.comcast.net/microsite/sports')
 			.end(function(err, res){
-	    		sports = res.text;
-	    		parseSports(sports);
-	    		//this.trigger({tv: tv});
+	    		sports = parseSports(res.text);
+	    		console.log(sports);
+	    		this.trigger({sports: sports});
 			}.bind(this));
 	},
 
@@ -89,11 +89,26 @@ function parseMovies(data) {
 
 function parseSports(html) {
 	//console.log('parsing sports', html);
+	var ret = [];
 	var section_REGEX = /<nav[^>]*>([^<]+)<\/nav>/g;
-	var nav_REGEX = /<section id="featured-events"[^>]*>(.*)nav?/g;
-	//var nav_REGEX = /<nav([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
+	var nav_REGEX = /<section id="featured-events"[^>]*>(.|\n)*?<\/section>?/g;
+	var ul_REGEX = /<ul class="carousel-items"[^>]*>(.|\n)*?<\/ul>?/g;
+	var li_re = /<li[^>]*>(.|\n)*?<\/li>?/g;
+	//var nav_REGEX = /<nav>(.|\n)*?<\/nav>/
 	var temp = html.match(nav_REGEX);
-	console.log(temp);
-	var a1 = section_REGEX.exec(html);
-	console.log(a1);
+	var a1 = ul_REGEX.exec(temp[0]);
+	var a2 = a1[0].match(li_re);
+	console.log(a2);
+
+	a2.forEach(function (element) {
+    	var r = 
+        {
+            url: /<div class="content">(.|\n)*? data-src="([^"]*)"?/.exec(element)[2],
+            id: /data-resource-id="([^"]*)"/.exec(element)[1]            
+        };
+
+        ret.push(r);
+    });
+
+    return (ret);
 }

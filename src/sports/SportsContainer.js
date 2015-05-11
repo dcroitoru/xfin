@@ -12,7 +12,7 @@ var SportsContainer = React.createClass({
 	},
 	getInitialState: function() {
 		return {
-			sports: '12343' 
+			sports: null 
 		};
 	},
 
@@ -20,7 +20,11 @@ var SportsContainer = React.createClass({
 		return (
 			<div>
 				sports container be here
-				<Sports data={this.state.sports}/>
+				{
+					this.state.sports
+					?<Sports data={this.state.sports}/>
+					:<div>loading</div>
+				}
 			</div>
 		);
 	}
