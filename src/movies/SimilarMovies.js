@@ -4,9 +4,12 @@ var Remote = require('../Remote');
 var MovieThumbRenderer = require('./MovieThumbRenderer');
 
 var SimilarMovies = React.createClass({
+	contextTypes: {
+    	router: React.PropTypes.func
+  	},
 	onSelect: function (item) {
 		console.log(item);
-		//this.context.router.transitionTo('/tv/' + item.id);
+		this.context.router.transitionTo('/movie/' + item.id);
 	},
 	render: function() {
 		var list = this.props.similar.map(function (movie, index) {

@@ -37,6 +37,15 @@ var AppStore = Reflux.createStore({
 			}.bind(this));
 	},
 
+	onGetSports: function () {
+		request.get('http://xfinitytv.comcast.net/microsite/sports')
+			.end(function(err, res){
+	    		sports = res.text;
+	    		parseSports(sports);
+	    		//this.trigger({tv: tv});
+			}.bind(this));
+	},
+
 	getInitialState: function () {
 		return {messages: messages};
 	},
@@ -76,4 +85,15 @@ function parseMovies(data) {
     console.log('result is', result);
 
     return result;
+}
+
+function parseSports(html) {
+	//console.log('parsing sports', html);
+	var section_REGEX = /<nav[^>]*>([^<]+)<\/nav>/g;
+	var nav_REGEX = /<section id="featured-events"[^>]*>(.*)nav?/g;
+	//var nav_REGEX = /<nav([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
+	var temp = html.match(nav_REGEX);
+	console.log(temp);
+	var a1 = section_REGEX.exec(html);
+	console.log(a1);
 }

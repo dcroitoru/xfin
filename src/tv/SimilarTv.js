@@ -16,7 +16,7 @@ var SimilarTv = React.createClass({
 	
 		return (
 			<div>
-				<h2>Similar Movies</h2>
+				<h2>Similar TV shows</h2>
 				{list}
 			</div>
 		);

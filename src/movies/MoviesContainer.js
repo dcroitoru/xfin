@@ -1,8 +1,8 @@
 var React = require('react');
 var Reflux = require('reflux');
-var Movies = require('./Movies');
 var Store = require('../AppStore');
 var AppActions = require('../AppActions');
+var Movies = require('./Movies');
 
 var MoviesContainer = React.createClass({
 	mixins: [Reflux.connect(Store)],

@@ -7,12 +7,12 @@ var Movies = React.createClass({
   	},
 	onSelect: function (item) {
 		console.log(item);
-		this.context.router.transitionTo('/movies/' + item.id);
+		this.context.router.transitionTo('/movie/' + item.id);
 	},
 	render: function() {
 		//console.log(this.props.data);
 		var list = this.props.data && this.props.data.map(function (item, index) {
-			return (<MovieThumbRenderer movie={item} key={index} />);
+			return (<MovieThumbRenderer movie={item} key={index} selectHandler={this.onSelect.bind(this, item)}/>);
 		}, this);
 		return (
 			<div>
