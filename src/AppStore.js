@@ -38,6 +38,7 @@ var AppStore = Reflux.createStore({
 	},
 
 	onGetSports: function () {
+		//request.get('sports.html')
 		request.get('http://xfinitytv.comcast.net/microsite/sports')
 			.end(function(err, res){
 	    		sports = parseSports(res.text);
@@ -89,26 +90,124 @@ function parseMovies(data) {
 
 function parseSports(html) {
 	//console.log('parsing sports', html);
-	var ret = [];
-	var section_REGEX = /<nav[^>]*>([^<]+)<\/nav>/g;
-	var nav_REGEX = /<section id="featured-events"[^>]*>(.|\n)*?<\/section>?/g;
-	var ul_REGEX = /<ul class="carousel-items"[^>]*>(.|\n)*?<\/ul>?/g;
+	
+	
+	
+	
+	var bg_re = /background-image: url\((.*?)\)/;
 	var li_re = /<li[^>]*>(.|\n)*?<\/li>?/g;
-	//var nav_REGEX = /<nav>(.|\n)*?<\/nav>/
-	var temp = html.match(nav_REGEX);
-	var a1 = ul_REGEX.exec(temp[0]);
-	var a2 = a1[0].match(li_re);
-	console.log(a2);
+	var ul_re = /<ul class="carousel-items"[^>]*>(.|\n)*?<\/ul>?/g;
+	var title_re = /<h1>(.*?)<\/h1>/;
 
-	a2.forEach(function (element) {
+	var featured = [];
+	var featured_re = /<section id="featured-events"[^>]*>(.|\n)*?<\/section>?/g;
+
+	var feat = html.match(featured_re)[0];
+	var feat_ul = ul_re.exec(feat)[0];
+	var feat_li = feat_ul.match(li_re);
+	var feat_bg = feat.match(bg_re)[1];
+	var feat_title = feat.match(title_re)[1];
+	//console.log(feat_li, feat_bg);
+
+	feat_li.forEach(function (element) {
     	var r = 
         {
-            url: /<div class="content">(.|\n)*? data-src="([^"]*)"?/.exec(element)[2],
+            img: /<div class="content">(.|\n)*? data-src="([^"]*)"?/.exec(element)[2],
             id: /data-resource-id="([^"]*)"/.exec(element)[1]            
         };
 
-        ret.push(r);
+        featured.push(r);
     });
 
-    return (ret);
+
+	var live = [];
+    var live_re = /<section id="live-sports"[^>]*>(.|\n)*?<\/section>?/g;
+    var li_re2 = /<a[^>]*>(.|\n)*?<\/a>+/g;
+    var livesection = html.match(live_re)[0];
+	var live_ul = livesection.match(ul_re)[0];
+	var live_li = live_ul.match(li_re2);
+	var live_bg = livesection.match(bg_re)[1];
+	var live_title = livesection.match(title_re)[1];
+
+	live_li.forEach(function (element) {
+    	var r = 
+        {            
+            url: /href="([^"]*)"/.exec(element)[1],
+            img: /data-src="([^"]*)"/.exec(element)[1]
+        };
+
+        live.push(r);
+    });
+
+    var nba = [];
+    var nba_more;
+    var nba_re = /<section id="nba"[^>]*>(.|\n)*?<\/section>?/g;
+    var nbasection = html.match(nba_re)[0];
+    var anchor_re = /<a[^>]*>(.|\n)*?<\/a>+/g;
+    var nba_a = nbasection.match(anchor_re);
+    var nba_bg = nbasection.match(bg_re)[1];
+    var nba_title = nbasection.match(title_re)[1];
+    console.log(nba_title);
+	nba_a.forEach(function (element, index) {
+		if(index == (nba_a.length-1)) {
+			nba_more = /href="([^"]*)"/.exec(element)[1];
+			return;
+		}
+    	var r = 
+        {            
+            url: /href="([^"]*)"/.exec(element)[1],
+            img: /data-src="([^"]*)"/.exec(element)[1],
+            title: /data-title="([^"]*)"/.exec(element)[1],
+        };
+
+        nba.push(r);
+    });
+
+    var nhl = [];
+    var nhl_more;
+    var nhl_re = /<section id="nhl"[^>]*>(.|\n)*?<\/section>?/g;
+    var nhlsection = html.match(nhl_re)[0];
+    var anchor_re = /<a[^>]*>(.|\n)*?<\/a>+/g;
+    var nhl_a = nhlsection.match(anchor_re);
+    var nhl_bg = nhlsection.match(bg_re)[1];
+    var nhl_title = nhlsection.match(title_re)[1];
+    console.log(nhl_title);
+	nhl_a.forEach(function (element, index) {
+		if(index == (nhl_a.length-1)) {
+			nhl_more = /href="([^"]*)"/.exec(element)[1];
+			return;
+		}
+    	var r = 
+        {            
+            url: /href="([^"]*)"/.exec(element)[1],
+            img: /data-src="([^"]*)"/.exec(element)[1],
+        };
+
+        nhl.push(r);
+    });
+
+    console.log('nhl', nhl);
+
+    return {
+    	featured: {
+    		title: feat_title,
+    		list: featured,
+    		background: feat_bg
+    	},
+    	live: {
+    		title: live_title,
+    		background: live_bg,
+    		list: live
+    	},
+    	nba: {
+    		title: nba_title,
+    		background: nba_bg,
+    		list: nba
+    	},
+    	nhl: {
+    		title: nhl_title,
+    		background: nhl_bg,
+    		list: nhl
+    	},
+    };
 }

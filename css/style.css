@@ -9,3 +9,63 @@
 .movie-thumb img {
 	display: block;
 }
+
+.simple-thumb {
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+.sports-container {
+	color: #fefefe;
+ 	background-repeat: no-repeat;
+ 	background-size: cover;
+ 	margin-bottom: 10px;
+}
+
+.sports-container h1 {
+	padding: 62px 0 17px;
+  	margin: 0 100px 19px;
+	text-align: center;
+	border-bottom: 1px solid rgba(255,255,255,.3);
+	font-family: Tahoma;
+	text-transform: uppercase;
+}
+
+.sports-container ul {
+position: relative;
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 150px 250px;
+  max-width: 1260px;
+}
+
+.sports-container li {
+	position: relative;
+	  display: inline-block;
+	  margin: 0;
+	  padding: 0;
+	  vertical-align: top;
+	  white-space: normal;
+	    margin-right: 7px;
+}
+
+.sports-container li .title-bar {
+	left: 0;
+  	padding: 10px;
+  	position: absolute;
+  	right: 0;
+  	bottom: 0;
+  	background: rgba(255,255,255,.8);
+  	color: #313131;
+  	height: 25px;
+  	font-family: Helvetica;
+  	font-size: 11px;
+  	overflow: hidden;
+  	text-transform: uppercase;
+}
