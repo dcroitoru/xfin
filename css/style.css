@@ -69,3 +69,31 @@ position: relative;
   	overflow: hidden;
   	text-transform: uppercase;
 }
+
+.tv-row {
+	vertical-align: top;
+	white-space: nowrap;
+	font-family: Tahoma;
+	font-size: 13px;
+}
+.tv-row .channel-meta {
+	color: #444;
+	display: inline-block;
+	background: #fcfcfc;
+	width: 150px;
+	height:50px;
+	border: 1px solid #ccc;
+	margin: 2px;
+	padding: 2px;
+}
+.tv-row .program {
+	padding: 2px;
+	color: #666;
+	display: inline-block;
+	background: #fafafe;
+	min-width: 100px;
+	height:50px;
+	border: 1px solid #ccc;
+	margin: 2px;
+	vertical-align: top;
+}

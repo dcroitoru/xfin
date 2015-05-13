@@ -7,10 +7,16 @@
     <script src="jquery.js"></script>
     <script type="text/javascript">
     $(document).ready(function () {
-        var allData = null;
-        $.get( "http://ghid-electronic.upc.ro/TV/wa/grid/?startDateTime=2015-05-12T17:00:00Z", function( data ) {
-            parseData(data);
-            
+        var channels = null;
+        var baseurl = 'http://ghidtv.rcs-rds.ro';
+        $.get( "digi-channels.json", function( data ) {
+            console.log(data);            
+            var lis = data.map(function (element) {
+                return '<li><img src="' + baseurl + element.logo + '"></li>'
+            });
+
+            $('#list').append(lis);
+
         });
 
         function parseData(data) {

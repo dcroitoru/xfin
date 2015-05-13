@@ -47,6 +47,42 @@ var AppStore = Reflux.createStore({
 			}.bind(this));
 	},
 
+    onGetLiveTv: function (provider) {
+        //request.get('http://ghid-electronic.upc.ro/TV/wa/grid/?startDateTime=2015-05-12T17:00:00Z')
+        switch (provider) {
+            case 'upc':
+                request.get('upc-listing.html')
+                .end(function(err, res){
+                    livetv = adapterUpc(res.text);
+                    console.log(livetv);
+                    this.trigger({livetv: livetv});
+                }.bind(this));
+                break;
+            case 'digi':
+                request.get('digi-channels.json')
+                .end(function(err, res){
+                    var ch = res.body;
+                    request.get('digi-programs.json')
+                    .end(function(err, res){
+                        console.log('programs', res.body);
+                        var pr = res.body;
+                        livetv = adapterDigi(ch, pr);
+                        //console.log(res);
+                        this.trigger({livetv: livetv});
+                    }.bind(this));
+                    /*livetv = adapterDigi(res.body);
+                    console.log(res);
+                    this.trigger({livetv: livetv});*/
+                }.bind(this));
+                break;
+            default: 
+
+                console.log('unknown provider');
+
+        }
+        
+    },
+
 	getInitialState: function () {
 		return {messages: messages};
 	},
@@ -60,7 +96,61 @@ var AppStore = Reflux.createStore({
 });
 
 module.exports = AppStore;
+function adapterDigi(ch, pr) {
+    var res = ch.map(function (element) {
+        console.log(element);
+        return {
+            baseurl: 'http://ghidtv.rcs-rds.ro/',
+            meta: {
+                title: element.name,
+                url: element.link,
+                hd: false,
+                position: element.epg_id_dpx,
+                logo: element.logo
+            },
+            programs: pr[element.id].map(function (p) {
+                return {
+                    title: p.title_ro,
+                    time: p.hour + " - " + p.stop,
+                    desc: p.short_description
+                }
+            })
+        }
+    });
 
+    return res;
+}
+
+function adapterUpc(html) {
+    var res = [];
+    var node = $(html);
+    var baseurl = 'http://ghid-electronic.upc.ro/';
+    var channels0 = node.find('ol');
+    // console.log(channels0);
+    var channels1 = $.map(channels0, function(element) {  
+        //console.log(element);
+        var el = element;
+        var meta = $(el).find('li:first-child');
+        var prog = $(el).find('li:not(:first-child)')
+        return {
+            meta: {
+                title: meta.find('div.channel_name a.channel').prop('title'),
+                url: baseurl + meta.find('div.channel_name a.channel').attr('href'),
+                hd: meta.find('div.meta_logo.hd').length > 0,
+                position: meta.find('div.channel_position').prop('title')
+            },
+            programs: $.map(prog, function (p) {
+                return {
+                    title: $(p).find('a').text(),
+                    time: $(p).find('span.time').text(),
+                    desc: $(p).find('p.desc').text()
+                }
+            })
+        }
+    });
+    console.log(channels1);
+    return channels1;
+}
 
 function parseMovies(data) {
     var anchor_REGEX = /<a[^>]*>([^<]+)<\/a>/g;
@@ -87,6 +177,8 @@ function parseMovies(data) {
 
     return result;
 }
+
+
 
 function parseSports(html) {
 	//console.log('parsing sports', html);
