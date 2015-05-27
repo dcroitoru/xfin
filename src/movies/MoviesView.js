@@ -5,7 +5,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		return (
-			<div>this is movies view
+			<div className="innerMainWrapper">this is movies view
 				<MoviesContainer />
 			</div>
 		);

@@ -17,9 +17,11 @@ var SimilarMovies = React.createClass({
 		}, this);
 	
 		return (
-			<div>
-				<h2>Similar Movies</h2>
-				{list}
+			<div className="similar">
+				<div className="b-maxWidthContainer">
+					<h2>Similar Movies</h2>
+					{list}
+				</div>
 			</div>
 		);
 	}

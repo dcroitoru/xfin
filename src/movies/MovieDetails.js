@@ -7,16 +7,18 @@ var MovieDetails = React.createClass({
 			return <div key={index}>{genre.name}</div>;
 		});
 		return (
-			<div>
+			<div className="whiteNoise">
 				<img src={this.props.backdrop}></img>
 				<hr/>
-				{this.props.summary.title}
-				<hr/>
-				<img src={this.props.poster}></img>
-				<span>Overview: {this.props.summary.overview}</span>
-				<hr/>
-				{genres}
-				<div>Release date: {this.props.summary.release_date}</div>
+				<div className="b-maxWidthContainer">
+					{this.props.summary.title}
+					<hr/>
+					<img src={this.props.poster}></img>
+					<span>Overview: {this.props.summary.overview}</span>
+					<hr/>
+					{genres}
+					<div>Release date: {this.props.summary.release_date}</div>
+				</div>
 
 			</div>
 		);

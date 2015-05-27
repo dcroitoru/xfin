@@ -1,3 +1,20 @@
+body {
+    font-family: 'Ubuntu';
+}
+
+.similar {
+	background-color: #142947;
+	padding-top: 20px;
+}
+.similar h2 {
+	color: #f4f4f4;
+	text-align: center;
+}
+.whiteNoise {
+  background: url(data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQAB…d7f3zv7Xy/ktNzf/Up9Jmn+zT/ALn+Gn068v7nD9HP9Sb/APbj/vf6tT9jh+X+T/8An/w1/9k=) #f4f4f4;
+}
+
+
 .movie-thumb {
 	display: inline-block;
 	margin: 5px;

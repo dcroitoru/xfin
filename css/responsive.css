@@ -1,0 +1,16 @@
+.innerMainWrapper {
+  max-width: 1400px;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.b-maxWidthContainer {
+  max-width: 1020px;
+  overflow: hidden;
+}
+@media screen and (min-width: 1101px) {
+	.b-maxWidthContainer {
+	  margin: 0 auto;
+	}
+}

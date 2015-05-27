@@ -5,7 +5,7 @@ var MovieCast = React.createClass({
 	render: function() {
 
 		return (
-			<div>
+			<div className="b-maxWidthContainer">
 			<h3>Cast</h3>
 			<ul>
 			{
