@@ -83,6 +83,10 @@ var AppStore = Reflux.createStore({
         
     },
 
+    onGetAssetVideos: function (id) {
+        console.log()
+    },
+
 	getInitialState: function () {
 		return {messages: messages};
 	},

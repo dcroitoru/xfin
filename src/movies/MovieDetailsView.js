@@ -84,7 +84,15 @@ var MovieDetailsView = React.createClass({
 				? <SimilarMovies similar={this.state.similar} />
 				: <span>loading...</span>
 			}
-			
+				<div className="footer divider">
+					<div className="c-footer__about">about</div>
+					<div className="divider">
+						<div className="c-footer__social">social</div>
+					</div>
+					<div className="divider">
+						<div className="c-footer__links">links</div>
+					</div>
+				</div>
 			</div>
 		);
 	}

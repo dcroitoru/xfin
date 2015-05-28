@@ -12,15 +12,16 @@ var TvView = require('./tv/TvView');
 var TvDetailsView = require('./tv/TvDetailsView');
 var LiveTvView = require('./livetv/LiveTvView');
 var SportsView = require('./sports/SportsView');
+var PlayerView = require('./player/PlayerView');
 
 var App = React.createClass({
 	render: function () {
 		return (
 			<div>
-				<div>
+				<div className="header">
 					<Link to="app">Home</Link> | <Link to="movies">Movies </Link> | <Link to="tv">TV Shows</Link> | <Link to="sports">Sports</Link> | <Link to="livetv">Live TV</Link>  
 				</div>
-				<hr/>
+				<div className="divider"></div>
 				<RouteHandler />
 			</div>
 			)
@@ -40,6 +41,7 @@ var routes = (
 		<Route name="sports" handler={SportsView} />
 		<Route name="moviedetails" path="movie/:id" handler={MovieDetailsView} />
 		<Route name="tvdetails" path="tv/:id" handler={TvDetailsView} />
+		<Route name="player" path="player/:id" handler={PlayerView} />
 	</Route>
 	);
 

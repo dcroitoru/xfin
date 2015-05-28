@@ -5,6 +5,8 @@ var MovieCast = React.createClass({
 	render: function() {
 
 		return (
+			<div className="whiteNoise cast">
+
 			<div className="b-maxWidthContainer">
 			<h3>Cast</h3>
 			<ul>
@@ -14,6 +16,7 @@ var MovieCast = React.createClass({
 				})
 			}
 			</ul>
+			</div>
 			</div>
 		);
 	}

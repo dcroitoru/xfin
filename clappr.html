@@ -1,0 +1,31 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="lib/clappr.min.js"></script>
+	<script type="text/javascript" src="lib/youtube_playback.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+window.onload = function() {
+  var player = new Clappr.Player({
+    sources: ['nfWlot6h_JM'],
+    poster: 'https://i.ytimg.com/vi/nfWlot6h_JM/hqdefault.jpg',
+    parentId: '#player-wrapper',
+    youtubeShowRelated: true,
+    plugins: {
+      playback: [YoutubePlayback]
+    }
+  });
+}
+  </script>
+
+</head>
+
+
+<body>
+	
+	<div id="player-wrapper" class="player"></div>	
+	
+
+	
+</body>
+</html>
