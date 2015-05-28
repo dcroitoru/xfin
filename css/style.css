@@ -2,7 +2,9 @@ body {
     font-family: 'Ubuntu';
     color: #f4f4f4;
 }
-
+div[data-player] {
+  margin: 0 auto;
+}
 .header {
 	padding: 20px;
 }

@@ -8,6 +8,11 @@ var PlayerContainer = React.createClass({
 	contextTypes: {
     	router: React.PropTypes.func
   	},
+  	getInitialState: function() {
+  		return {
+  			id: null
+  		};
+  	},
   	componentDidMount: function() {
   		theid = this.context.router.getCurrentParams().id;
 		console.log(theid);
@@ -15,13 +20,18 @@ var PlayerContainer = React.createClass({
 		request.get(Remote.tmdb + '/movie/' + theid + '/videos?api_key=' + Remote.api_key)
 		.end(function (err, res) {
 			console.log(res.body);
-			
+			this.setState({id: res.body.results[0].key});
 		}.bind(this));
   	},
 	render: function() {
 		return (
 			<div>player container be here
-				<Player/>
+			{
+				this.state.id 
+				? <Player id={this.state.id}/>
+				: ''
+			}
+				
 			</div>
 		);
 	}

@@ -1,9 +1,13 @@
 <html>
 <head>
 	<title></title>
-	<script type="text/javascript" src="lib/clappr.min.js"></script>
-	<script type="text/javascript" src="lib/youtube_playback.js"></script>
-
+  <script type="text/javascript" src="lib/clappr.min.js"></script>
+  <script type="text/javascript" src="lib/youtube_playback.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+<script>
+$.noConflict();
+// Code that uses other library's $ can follow here.
+</script>
 	<script type="text/javascript" charset="utf-8">
 window.onload = function() {
   var player = new Clappr.Player({
