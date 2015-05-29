@@ -65,9 +65,9 @@ var TvDetailsView = React.createClass({
   	render: function() {
 
 		return (
-			<div>
+			<div className="innerMainWrapper">
 			{this.state.summary 
-				? <MovieDetails summary={this.state.summary} backdrop={this.state.backdrop} poster={this.state.poster}/>
+				? <MovieDetails title={this.state.summary.name} summary={this.state.summary} backdrop={this.state.backdrop} poster={this.state.poster}/>
 				: <span>loading...</span>
 			}
 			{this.state.credits
@@ -78,7 +78,15 @@ var TvDetailsView = React.createClass({
 				? <SimilarTv similar={this.state.similar} />
 				: <span>loading...</span>
 			}
-			
+				<div className="footer divider">
+					<div className="c-footer__about">about</div>
+					<div className="divider">
+						<div className="c-footer__social">social</div>
+					</div>
+					<div className="divider">
+						<div className="c-footer__links">links</div>
+					</div>
+				</div>
 			</div>
 		);
 	}

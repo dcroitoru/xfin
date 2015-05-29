@@ -73,7 +73,7 @@ var MovieDetailsView = React.createClass({
 		return (
 			<div className="innerMainWrapper">
 			{this.state.summary 
-				? <MovieDetails summary={this.state.summary} backdrop={this.state.backdrop} poster={this.state.poster}/>
+				? <MovieDetails title={this.state.summary.title} summary={this.state.summary} backdrop={this.state.backdrop} poster={this.state.poster}/>
 				: <span>loading...</span>
 			}
 			{this.state.credits

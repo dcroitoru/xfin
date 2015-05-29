@@ -7,7 +7,7 @@ var MovieCast = React.createClass({
 		return (
 			<div className="whiteNoise cast">
 
-			<div className="b-maxWidthContainer">
+			<div className="b-maxWidthContainer" style={{paddingLeft: "452px"}}>
 			<h3>Cast</h3>
 			<ul>
 			{

@@ -2,6 +2,9 @@ body {
     font-family: 'Ubuntu';
     color: #f4f4f4;
 }
+.header a {
+  color: #f4f4f4;
+}
 div[data-player] {
   margin: 0 auto;
 }
@@ -152,6 +155,9 @@ position: relative;
 	vertical-align: top;
 }
 .c-retailButton {
+  position: absolute;
+  bottom: 25px;
+  left: 452px;
   width: 100%;
   height: 60px;
   -webkit-box-sizing: border-box;

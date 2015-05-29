@@ -22,7 +22,7 @@ var MovieDetails = React.createClass({
 					<div className="c-billboard__overlay">
 						<div className="b-maxWidthContainer">
 							<div className="c-assetHeader__title--billboard">
-								{this.props.summary.title}
+								{this.props.title}
 							</div>
 							<button onClick={this.playMovie} className="c-retailButton c-retailButton--purchase">Play</button>
 						</div>

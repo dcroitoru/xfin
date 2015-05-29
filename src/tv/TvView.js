@@ -5,7 +5,7 @@ var TvView = React.createClass({
 
 	render: function() {
 		return (
-			<div>
+			<div className="innerMainWrapper">
 				tv view be here
 				<TvContainer />
 			</div>
