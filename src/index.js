@@ -6,6 +6,10 @@ var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 
+var rc = require('./rc');
+rc.init();
+
+
 var MoviesView = require('./movies/MoviesView');
 var MovieDetailsView = require('./movies/MovieDetailsView');
 var TvView = require('./tv/TvView');
@@ -20,7 +24,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<div className="header">
-					<Link to="app">Home</Link> | <Link to="movies">Movies </Link> | <Link to="tv">TV Shows</Link> | <Link to="sports">Sports</Link> | <Link to="livetv">Live TV</Link> | <Link to="search">Search</Link>  
+					<Link to="app" className="spotlight hovered">Home</Link> | <Link to="movies" className="spotlight">Movies </Link> | <Link to="tv">TV Shows</Link> | <Link to="sports">Sports</Link> | <Link to="livetv">Live TV</Link> | <Link to="search">Search</Link>  
 				</div>
 				<div className="divider"></div>
 				<RouteHandler />
