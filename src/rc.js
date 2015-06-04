@@ -65,7 +65,7 @@ function getNearestNeighbour(element, direction) {
 var rc = {
 	init: function () {
 		console.log('rc init');
-		$("body").keydown(function(e) {
+		jQuery("body").keydown(function(e) {
 			console.log(e.which)
 			//e.preventDefault();
 

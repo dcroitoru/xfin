@@ -1,40 +1,33 @@
 var React = require('react');
+var YouTube = require('react-youtube');
 
 
 var Player = React.createClass({
 	playFull: function () {
-		console.log(p.core.toggleFullScreen);
-		//p.core.mediaControl.trigger("container:fullscreen", 'abc');
-		p.core.mediaControl.$fullscreenToggle.click();
-		//window.p.core.toggleFullScreen();
+		$('#player-wrapper iframe').get(0).webkitRequestFullscreen();
 	},
 	componentDidMount: function() {
 		console.log(this.props.id);
-		var playerElement = this.refs.pl.getDOMNode();
-		player = new Clappr.Player({
-  			sources: [this.props.id],
-  			poster: 'https://i.ytimg.com/vi/' + this.props.id + '/hqdefault.jpg',
-  			parentId: '#player-wrapper',
-  			mute: true,
-  			plugins: {
-    			playback: [YoutubePlayback]
-  			}
-		});
-
-		player.mute();
-		player.play();
-
-		window.player = player;
-
-		/*player.attachTo(player);*/
+		
 	},		
 	render: function() {
-		console.log(Clappr);
+		
+		const opts = {
+	      height: '390',
+	      width: '640',
+	      playerVars: { // https://developers.google.com/youtube/player_parameters
+	        autoplay: 0
+	      }
+	    };
 		return (
 			<div>
 				{this.props.id}
 				<button onClick={this.playFull}>play in fullscreen</button>
-				<div id="player-wrapper" ref="pl"></div>
+				<div id="player-wrapper" ref="pl">
+				
+				<YouTube url={'http://www.youtube.com/watch?v=' + this.props.id} opts={opts} />
+      			
+				</div>
 			</div>
 		);
 	}
