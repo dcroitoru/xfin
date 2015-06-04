@@ -11,7 +11,7 @@ function _log(msg) {
 	$('._log').html("<h1>message is <lg_red>" + msg + "</lg_red></h1>"); 
 }
 function getNearestNeighbour(element, direction) {
-	console.log('should get ', direction, 'of', element);
+	//console.log('should get ', direction, 'of', element);
 
 	if(element == undefined) {
 		$(spot).get(0) && $($(spot).get(0)).addClass('hovered');
@@ -58,7 +58,7 @@ function getNearestNeighbour(element, direction) {
 		}
 	});
 
-	console.log(nearest);
+	//console.log(nearest);
 	return nearest;
 }
 
@@ -70,23 +70,23 @@ var rc = {
 			//e.preventDefault();
 
 			switch(e.which) {
-			case 39:
+			case KEYS.RIGHT:
 				this.handleRight();
 				e.preventDefault();
 				break;
-			case 40:
+			case KEYS.DOWN:
 				this.handleDown();
 				e.preventDefault();
 				break;
-			case 38:
+			case KEYS.UP:
 				this.handleUp();
 				e.preventDefault();
 				break;
-			case 37:
+			case KEYS.LEFT:
 				this.handleLeft();
 				e.preventDefault();
 				break;
-			case 13:
+			case KEYS.ENTER:
 				this.handleSelect();
 				e.preventDefault();
 				break;
@@ -99,6 +99,7 @@ var rc = {
 		$(focused).focus();
 		var node = React.findDOMNode(focused);
         React.addons.TestUtils.Simulate.click(node, {button: 0});
+        $(node).click();
 		/*console.log(focused);
         console.log('onter keydown',  node);*/
         //_log(webOS.keyboard);
@@ -160,7 +161,7 @@ function scrollTo(element) {
     var visible_area_end = visible_area_start + window.innerHeight;
 
     if(offset < visible_area_start || offset > visible_area_end)
-		$('html, body').animate({
+		jQuery('body, #content').animate({
 	        scrollTop: $(element).offset().top - 20
 	    }, 500);
 }

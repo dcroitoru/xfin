@@ -34,7 +34,13 @@ var App = React.createClass({
 	}
 });
 
-var Home = React.createClass({render: function (){ return <div>this is home</div>}});
+var Home = React.createClass({render: function (){ 
+	var d = new Date();
+	console.log(d);
+	return <div>
+	this is homeie {d.toString()}
+	</div>
+}});
 var rrr = React.createClass({render: function (){ return <div>this is rrr</div>}});
 
 var routes = (
