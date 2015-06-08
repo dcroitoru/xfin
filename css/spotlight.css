@@ -1,12 +1,12 @@
 .hovered {
 	background: pink;
 	outline: 1px solid magenta;
-	transition: all .2s ease-in-out;
-	transform: scale(1);
+	/*transition: all .2s ease-in-out;
+	transform: scale(1);*/
 }
 
 .movie-thumb.hovered {
-	transform: scale(1.15);
+	/*transform: scale(1.15);
 	-webkit-transform: scale(1.15);
-	transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;*/
 }

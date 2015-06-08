@@ -10,6 +10,11 @@ function _log(msg) {
 	console.log('should log', msg);
 	$('._log').html("<h1>message is <lg_red>" + msg + "</lg_red></h1>"); 
 }
+
+function getCenter(el) {
+	return { x: el.offsetLeft + $(el).outerWidth()/2, y: el.offsetTop + $(el).outerHeight()/2};
+}
+
 function getNearestNeighbour(element, direction) {
 	//console.log('should get ', direction, 'of', element);
 
@@ -20,45 +25,68 @@ function getNearestNeighbour(element, direction) {
 
 	//console.log($(element).nearest('.spotlight', {sameX: true}));
 	var nearest;
+	var minDisty = Infinity;
+	var minDistx = Infinity;
 	var minDist = Infinity;
-	var distx, disty;
-	var tolerance = 200;
+	var distx, disty, distxy;
+	var tolerance = 1200;
+	var centerFrom, centerTo;
+	centerFrom = getCenter(element);
 	$(spot).each(function (index, el) {
 		if(el == element)
 			return;
-		disty = el.offsetTop - element.offsetTop;
+
+		centerTo = getCenter(el);
+		/*disty = el.offsetTop - element.offsetTop;
 		distx = el.offsetLeft - element.offsetLeft;
+		distxy = Math.sqrt(distx * distx + disty * disty);*/
+		
+		distx = centerTo.x - centerFrom.x;
+		disty = centerTo.y - centerFrom.y;
+		distxy = Math.sqrt(distx * distx + disty * disty);
 
 		switch(direction) {
 			case 'down':
-				if (disty > 0 && disty < minDist && Math.abs(distx) < tolerance) {
-					minDist = disty;
-					nearest = el;
+				// if (disty > 0 && disty < minDist && Math.abs(distx) < tolerance) {
+				if (disty > 15/* && disty <= minDisty*/) {
+					if(distxy <= minDist) {
+			minDist = distxy;
+			nearest = el;
+		}
 				}
 				break;
 			case 'up':
-				if (disty < 0 && Math.abs(disty) < minDist && Math.abs(distx) < tolerance) {
-					minDist = Math.abs(disty);
-					nearest = el;
+				if (disty < -15/* && Math.abs(disty) <= minDisty*/) {
+					if(Math.abs(distx) <= minDistx) {
+						minDisty = Math.abs(disty);
+						minDistx = Math.abs(distx);
+						nearest = el;
+					}
 				}
 				break;
 			case 'left':
-				if (distx < 0 && Math.abs(distx) < minDist && Math.abs(disty) < tolerance) {
-					minDist = Math.abs(distx);
-					nearest = el;
+				if (distx < 0 /*&& Math.abs(distx) <= minDistx*/) {
+					if(distxy <= minDist) {
+					minDistx = Math.abs(distx);
+			minDist = distxy;
+			nearest = el;
+		}
 				}
 				break;
 			case 'right':
-				if (distx > 0 && distx < minDist && Math.abs(disty) < tolerance) {
-					minDist = distx;
-					nearest = el;
+				if (distx > 0/* && distx <= minDistx*/) {
+					if(distxy <= minDist) {
+						minDistx = distx;
+						minDist = distxy;
+						nearest = el;
+					}
 				}
 				break;
 			default: break;
 		}
 	});
 
-	//console.log(nearest);
+	console.log(minDist);
 	return nearest;
 }
 
@@ -66,7 +94,7 @@ var rc = {
 	init: function () {
 		console.log('rc init');
 		jQuery("body").keydown(function(e) {
-			console.log(e.which)
+			//console.log(e.which)
 			//e.preventDefault();
 
 			switch(e.which) {
