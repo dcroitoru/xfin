@@ -50,12 +50,19 @@ var AppStore = Reflux.createStore({
     onGetLiveTv: function (provider) {
         //request.get('http://ghid-electronic.upc.ro/TV/wa/grid/?startDateTime=2015-05-12T17:00:00Z')
         switch (provider) {
+            case 'dya':
+                request.get('dya-epg.json').end(function (err, res) {
+                    console.log(res);
+                    livetv = adapterDya(res.body);
+                    this.trigger({livetv:livetv,  dya: true});
+                }.bind(this));
+                break;
             case 'upc':
                 request.get('upc-listing.html')
                 .end(function(err, res){
                     livetv = adapterUpc(res.text);
                     console.log(livetv);
-                    this.trigger({livetv: livetv});
+                    this.trigger({livetv: livetv, dya: false});
                 }.bind(this));
                 break;
             case 'digi':
@@ -68,7 +75,7 @@ var AppStore = Reflux.createStore({
                         var pr = res.body;
                         livetv = adapterDigi(ch, pr);
                         //console.log(res);
-                        this.trigger({livetv: livetv});
+                        this.trigger({livetv: livetv, dya: false});
                     }.bind(this));
                     /*livetv = adapterDigi(res.body);
                     console.log(res);
@@ -95,11 +102,40 @@ var AppStore = Reflux.createStore({
 	}, 
 	onSelectMovie: function (movie) {
 		console.log('should go to ', movie);
-		
 	},
+    getStation: function (station_code) {
+        var st = livetv.filter(function (s) {
+            return (s.meta.title == station_code)
+        });
+        return st[0];
+    }
 });
 
 module.exports = AppStore;
+
+function adapterDya(epg) {
+    var res = epg.map(function (element, index) {
+        return {
+            meta: {
+                title: element.station_code,
+                url: element.url,
+                position: index+1
+            },
+            programs: element.data.map(function (p) {
+                var s = new Date(p.start_date);
+                var e = new Date(p.end_date);
+                return {
+                    title: p.programtitle,
+                    time: s.getHours() + ":" + s.getMinutes() + " - " + e.getHours() + ":" + e.getMinutes(),
+                    desc: "genre: " + p.genre
+                }
+            })
+        }
+    });
+
+    return res;
+}
+
 function adapterDigi(ch, pr) {
     var res = ch.map(function (element) {
         console.log(element);

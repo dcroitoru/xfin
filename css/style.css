@@ -16,6 +16,20 @@ div[data-player] {
 .header {
 	padding: 20px;
 }
+
+.livetv-buttonbar button {
+    border: 1px solid #ccc;
+    background: #888;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.livetv-buttonbar button:hover {
+    opacity: .7;
+}
+
 .c-footer__links {
   color: #5e6574;
   margin-bottom: 10px;

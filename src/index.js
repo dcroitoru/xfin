@@ -17,6 +17,7 @@ var TvDetailsView = require('./tv/TvDetailsView');
 var LiveTvView = require('./livetv/LiveTvView');
 var SportsView = require('./sports/SportsView');
 var PlayerView = require('./player/PlayerView');
+var PlayerDyaView = require('./player/PlayerDyaView');
 var SearchView = require('./search/SearchView');
 
 var App = React.createClass({
@@ -53,6 +54,7 @@ var routes = (
 		<Route name="moviedetails" path="movie/:id" handler={MovieDetailsView} />
 		<Route name="tvdetails" path="tv/:id" handler={TvDetailsView} />
 		<Route name="player" path="player/:id" handler={PlayerView} />
+		<Route name="playerdya" path="playerdya/:station" handler={PlayerDyaView} />
 		<Route name="search" handler={SearchView} />
 	</Route>
 	);
